@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hệ Thống Dự Báo Thời Tiết Play Together</title>
+    <!-- Chèn Font và Icon sắc nét -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Fira+Code:wght@500;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-bg: #0b1528;
+            --card-bg: rgba(22, 38, 70, 0.6);
+            --neon-blue: #38bdf8;
+            --neon-purple: #c084fc;
+            --neon-gold: #fbbf24;
+            --text-main: #f8fafc;
+            --text-muted: #94a3b8;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: var(--primary-bg);
+            background-image: 
+                radial-gradient(at 10% 20%, rgba(56, 189, 248, 0.12) 0px, transparent 40%),
+                radial-gradient(at 90% 80%, rgba(192, 132, 252, 0.12) 0px, transparent 40%);
+            color: var(--text-main);
+            margin: 0;
+            padding: 20px;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-sizing: border-box;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 480px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 30px;
+            border-radius: 28px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+
+        /* Tiêu đề chính */
+        .weather-header {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .weather-header h2 {
+            font-size: 1.5rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            margin: 0;
+            background: linear-gradient(135deg, #38bdf8, #818cf8);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .weather-header p {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            margin: 5px 0 0;
+        }
+
+        /* Khối hiển thị thời tiết lớn */
+        .main-weather {
+            text-align: center;
+            padding: 20px 0;
+            background: rgba(15, 23, 42, 0.3);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            margin-bottom: 20px;
+        }
+
+        .weather-icon {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            display: inline-block;
+            animation: float 3s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-8px); }
+            100% { transform: translateY(0px); }
+        }
+
+        .temp-display {
+            font-size: 3rem;
+            font-weight: 800;
+            color: #fff;
+            line-height: 1;
+            margin-bottom: 5px;
+        }
+
+        .weather-status {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--neon-blue);
+        }
+
+        /* Chi tiết chỉ số phụ */
+        .weather-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-bottom: 25px;
+        }
+
+        .detail-item {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 12px 15px;
+            border-radius: 16px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .detail-icon {
+            font-size: 1.3rem;
+        }
+
+        .detail-info div:first-child {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .detail-info div:last-child {
+            font-size: 0.95rem;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        /* KHU VỰC NÚT ĐẾM NGƯỢC NHẬN MÃ (Yêu cầu chính) */
+        .code-generator-section {
+            border-top: 2px dashed rgba(255, 255, 255, 0.08);
+            margin-top: 25px;
+            padding-top: 25px;
+            text-align: center;
+        }
+
+        .btn-action {
+            width: 100%;
+            padding: 15px;
+            border: none;
+            border-radius: 16px;
+            font-size: 1rem;
+            font-weight: 700;
+            cursor: pointer;
+            background: linear-gradient(135deg, #a855f7 0%, #6366f1 100%);
+            color: white;
+            transition: all 0.2s ease;
+            box-shadow: 0 4px 20px rgba(168, 85, 247, 0.3);
+            font-family: inherit;
+        }
+
+        .btn-action:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 25px rgba(168, 85, 247, 0.4);
+        }
+
+        .btn-action:active {
+            transform: translateY(1px);
+        }
+
+        .btn-action:disabled {
+            background: #334155 !important;
+            color: #64748b !important;
+            cursor: not-allowed;
+            transform: none !important;
+            box-shadow: none !important;
+        }
+
+        .code-result-box {
+            display: none;
+            margin-top: 15px;
+            padding: 16px;
+            background: rgba(168, 85, 247, 0.08);
+            border: 2px dashed var(--neon-purple);
+            border-radius: 14px;
+            font-family: 'Fira Code', monospace;
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #fff;
+            letter-spacing: 1px;
+            animation: neonPulse 2s infinite;
+        }
+
+        @keyframes neonPulse {
+            0% { box-shadow: 0 0 0 0 rgba(192, 132, 252, 0.4); }
+            70% { box-shadow: 0 0 0 12px rgba(192, 132, 252, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(192, 132, 252, 0); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="card">
+        <!-- Header -->
+        <div class="weather-header">
+            <h2>🌤️ THỜI TIẾT PLAY TOGETHER</h2>
+            <p>Hệ thống dự báo thời tiết đảo Kaia thời gian thực</p>
+        </div>
+
+        <!-- Khối hiển thị chính -->
+        <div class="main-weather">
+            <div class="weather-icon">🌅</div>
+            <div class="temp-display">28°C</div>
+            <div class="weather-status">Trời Nhiều Mây & Có Nắng Đẹp</div>
+        </div>
+
+        <!-- Các chỉ số chi tiết -->
+        <div class="weather-details">
+            <div class="detail-item">
+                <div class="detail-icon">⏳</div>
+                <div class="detail-info">
+                    <div>Chu kỳ ngày</div>
+                    <div>Ban Ngày (Sáng)</div>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">💧</div>
+                <div class="detail-info">
+                    <div>Tỉ lệ cá hiếm</div>
+                    <div>Tăng +15%</div>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">💨</div>
+                <div class="detail-info">
+                    <div>Sức gió</div>
+                    <div>4.2 m/s</div>
+                </div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-icon">📍</div>
+                <div class="detail-info">
+                    <div>Khu vực tốt</div>
+                    <div>Bến Tàu / Thuyền</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- KHU VỰC NHẬN MÃ ĐẾM NGƯỢC 60S THEO YÊU CẦU -->
+        <div class="code-generator-section">
+            <button id="btnGetCode" class="btn-action">BẤM ĐỂ TÌM MÃ XÁC THỰC</button>
+            <div id="codeResultDisplay" class="code-result-box">SANGTAO-XXXXXX</div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.getElementById('btnGetCode').addEventListener('click', function() {
+        const button = this;
+        const codeDisplay = document.getElementById('codeResultDisplay');
+        let timeLeft = 60; // Thiết lập đếm ngược đúng 60 giây
+
+        // Vô hiệu hóa nút và ẩn hộp mã cũ (nếu có)
+        button.disabled = true;
+        codeDisplay.style.display = 'none';
+        button.innerText = `VUI LÒNG CHỜ HỆ THỐNG QUÉT: ${timeLeft}S`;
+
+        // Chạy bộ đếm ngược thời gian
+        const countdownTimer = setInterval(() => {
+            timeLeft--;
+            button.innerText = `VUI LÒNG CHỜ HỆ THỐNG QUÉT: ${timeLeft}S`;
+
+            if (timeLeft <= 0) {
+                clearInterval(countdownTimer);
+                button.innerText = "TÌM MÃ THÀNH CÔNG!";
+                
+                // Thuật toán sinh mã ngẫu nhiên lộn xộn bắt đầu bằng chữ SANGTAO
+                const characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+                let randomSuffix = "";
+                for (let i = 0; i < 8; i++) {
+                    randomSuffix += characters.charAt(Math.floor(Math.random() * characters.length));
+                }
+                
+                // Kết nối chuỗi hoàn chỉnh theo cấu trúc SANGTAO....
+                const finalCode = "SANGTAO" + randomSuffix;
+                
+                // Xuất mã hiển thị lên giao diện
+                codeDisplay.innerText = finalCode;
+                codeDisplay.style.display = 'block';
+            }
+        }, 1000);
+    });
+</script>
+</body>
+</html>
