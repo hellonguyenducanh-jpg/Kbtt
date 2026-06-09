@@ -199,18 +199,28 @@
         }
         .banner h1 { font-size: 32px; font-weight: 700; margin-bottom: 10px; text-shadow: 2px 2px 4px rgba(0,0,0,0.3); }
 
-        /* Khối Vòng Quay */
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 30px; justify-content: center; }
+        /* Section Title chung */
+        .section-title { font-size: 22px; font-weight: bold; margin: 35px 0 20px 0; display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary-color); padding-left: 12px; }
+
+        /* Khối hiển thị chung */
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; justify-content: center; }
         .card-random {
             background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s; position: relative;
         }
         .card-random:hover { transform: translateY(-5px); border-color: var(--primary-color); }
-        .card-tag { position: absolute; top: 15px; left: 15px; background: var(--primary-color); padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; }
-        .card-img { width: 100%; height: 200px; background: #333 linear-gradient(45deg, #111, #333); display: flex; align-items: center; justify-content: center; font-size: 40px; color: #555; }
+        .card-tag { position: absolute; top: 15px; left: 15px; background: var(--primary-color); padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; z-index: 5; }
+        .card-img { width: 100%; height: 200px; background: #333 linear-gradient(45deg, #111, #333); display: flex; align-items: center; justify-content: center; font-size: 40px; color: #555; overflow: hidden; }
+        .card-img img { width: 100%; height: 100%; object-fit: cover; }
         .card-body { padding: 20px; text-align: center; }
-        .card-title { font-size: 20px; font-weight: 600; margin-bottom: 10px; }
-        .card-price { font-size: 24px; color: #ffd32a; font-weight: 700; margin-bottom: 15px; }
+        .card-title { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
+        .card-price { font-size: 22px; color: #ffd32a; font-weight: 700; margin-bottom: 15px; }
+
+        /* Badge Log định dạng hiển thị */
+        .badge-log { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
+        .log-guest { background: #ff9f43; color: #fff; }
+        .log-facebook { background: #1877f2; color: #fff; }
+        .log-zing { background: #6c5ce7; color: #fff; }
 
         /* Buttons */
         .btn {
@@ -238,7 +248,7 @@
         .qr-image { width: 100%; max-width: 220px; border-radius: 12px; margin: 10px auto; border: 4px solid #fff; }
         .note-highlight { background: rgba(234, 32, 39, 0.15); border: 1px solid #ea2027; padding: 10px; border-radius: 8px; font-size: 12px; color: #ff7675; margin-top: 10px; text-align: left; line-height: 1.4; }
 
-        #result-box { background: rgba(46, 213, 115, 0.1); border: 1px dashed var(--secondary-color); padding: 15px; border-radius: 8px; margin-top: 15px; display: none; text-align: left; }
+        #result-box, .result-store-box { background: rgba(46, 213, 115, 0.1); border: 1px dashed var(--secondary-color); padding: 15px; border-radius: 8px; margin-top: 15px; display: none; text-align: left; }
 
         .floating-contact {
             position: fixed; bottom: 25px; right: 25px; width: 65px; height: 65px; background: #1877f2; color: white;
@@ -362,6 +372,7 @@
                     <p>Cơ hội nhận Nick VIP cực khủng siêu rẻ chỉ với 20.000đ từ NhanCodePTG</p>
                 </div>
 
+                <div class="section-title"><i class="fa-solid fa-dice" style="color:var(--primary-color);"></i> 1. DANH MỤC HÒM ACC RANDOM</div>
                 <div class="shop-grid">
                     <div class="card-random">
                         <span class="card-tag">Hot Sale</span>
@@ -377,21 +388,11 @@
                             <div id="result-box"></div>
                         </div>
                     </div>
-
-                    <div class="card-random">
-                        <span class="card-tag" style="background: var(--secondary-color);">New Update</span>
-                        <div class="card-img">
-                            <i class="fa-solid fa-store" style="color: var(--secondary-color);"></i>
-                        </div>
-                        <div class="card-body">
-                            <div class="card-title">Kho Acc Play Together</div>
-                            <div class="card-price" style="color: #fff; font-size: 18px;">Hàng Ngàn Nick Lựa Chọn</div>
-                            <div>
-                                <button class="btn btn-secondary" disabled><i class="fa-solid fa-screwdriver-wrench"></i> Đang Cập Nhật</button>
-                            </div>
-                        </div>
-                    </div>
                 </div>
+
+                <div class="section-title"><i class="fa-solid fa-store" style="color:#2ed573;"></i> 2. KHO ACC LỰA CHỌN (ĐỒNG GIÁ)</div>
+                <div class="shop-grid" id="render-store-grid">
+                     </div>
             </div>
         </div>
     </div>
@@ -406,7 +407,7 @@
         </p>
         <div class="note-highlight">
             <strong><i class="fa-solid fa-circle-exclamation"></i> GHI CHÚ QUAN TRỌNG:</strong><br>
-            Khi chuyển khoản xong, yêu cầu liên hệ với chủ shop để được cộng tiền vào tài khoản. Vui lòng giữ lại biên lai giao dịch!
+            Khi chuyển khoản xong, yêu cầu liên hệ with chủ shop để được cộng tiền vào tài khoản. Vui lòng giữ lại biên lai giao dịch!
         </div>
         <button class="btn btn-danger" style="padding: 8px; margin-top: 15px;" onclick="closeAllModals()">Đóng</button>
     </div>
@@ -440,6 +441,8 @@
         let currentSBD = null;
         let spinStep = 1; 
         let isSystemMaintenance = false;
+        let isRandomMaintenance = false;
+        let isStoreMaintenance = false;
         let deferredPrompt;
 
         window.loginWithGoogle = loginWithGoogle;
@@ -449,6 +452,7 @@
         window.openModal = openModal;
         window.closeAllModals = closeAllModals;
         window.handleSpinClick = handleSpinClick;
+        window.handleBuyStoreClick = handleBuyStoreClick;
 
         // BƯỚC THỰC THI CHÍNH KHI KHỞI ĐỘNG TRANG WEB
         window.addEventListener('DOMContentLoaded', () => {
@@ -457,22 +461,20 @@
 
         // 🧠 HÀM THÔNG MINH: NHẬN DIỆN THIẾT BỊ VÀ ÉP BUỘC PHẢI CHẠY BẰNG MÀN HÌNH CHÍNH (PWA APP)
         function detectAndVerifyPWA() {
-            // Kiểm tra xem trang web đang chạy độc lập (đã thêm ra màn hình chính) hay chưa
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
             if (isStandalone) {
-                // NẾU LÀ APP CHUẨN NGOÀI MÀN HÌNH CHÍNH: Cho chạy hiệu ứng Splash Screen giống video
                 document.getElementById('main-app-content').style.display = 'block';
                 checkSystemStatus();
+                loadStoreItems();
 
                 setTimeout(() => {
                     const splash = document.getElementById('splash-screen');
                     splash.style.opacity = '0';
                     setTimeout(() => { splash.style.display = 'none'; }, 500);
-                }, 2500); // Màn hình chờ nhún nhảy trong 2.5 giây rồi biến mất
+                }, 2500);
 
             } else {
-                // NẾU ĐANG CHẠY TRÊN TRÌNH DUYỆT THƯỜNG: Khóa Shop lại và kiểm tra hệ điều hành để hiện bảng hướng dẫn
                 document.getElementById('splash-screen').style.display = 'none';
                 document.getElementById('pwa-blocker').style.display = 'block';
 
@@ -480,16 +482,13 @@
                 const isIos = /iphone|ipad|ipod/.test(userAgent);
 
                 if (isIos) {
-                    // Nếu là iPhone -> Hiện bảng chỉ dẫn của Safari
                     document.getElementById('guide-ios').style.display = 'block';
                 } else {
-                    // Mặc định hoặc Android -> Hiện bảng chỉ dẫn của Android
                     document.getElementById('guide-android').style.display = 'block';
                 }
             }
         }
 
-        // Bắt sự kiện tải App của riêng hệ điều hành Android
         window.addEventListener('beforeinstallprompt', (e) => {
             e.preventDefault();
             deferredPrompt = e;
@@ -507,7 +506,6 @@
             }
         });
 
-        // 🛡️ CHỐNG VĂNG KHỎI CHẾ ĐỘ FULLSCREEN APP TRÊN IOS
         if (("standalone" in window.navigator) && window.navigator.standalone) {
             var noddy, remotes = false;
             document.addEventListener('click', function(event) {
@@ -554,6 +552,7 @@
                             loginSuccess(0, newSBD);
                         }
                         checkSystemStatus();
+                        loadStoreItems();
                     }
                 })
                 .catch((error) => {
@@ -567,24 +566,162 @@
                 const configRef = ref(database, 'system_config');
                 const snapshot = await get(configRef);
                 const config = snapshot.val();
+                
                 const btnSpin = document.getElementById('btn-spin-trigger');
 
-                if (config && config.maintenance === true) {
-                    isSystemMaintenance = true;
-                    if (btnSpin) {
-                        btnSpin.className = "btn btn-secondary";
-                        btnSpin.innerHTML = `<i class="fa-solid fa-screwdriver-wrench"></i> HỆ THỐNG ĐANG BẢO TRÌ`;
-                        btnSpin.disabled = true;
+                if (config) {
+                    isSystemMaintenance = config.maintenance === true;
+                    isRandomMaintenance = config.maintenance_random === true;
+                    isStoreMaintenance = config.maintenance_store === true;
+
+                    // Xử lý nút xoay random dựa trên trạng thái bảo trì tổng hoặc bảo trì lẻ
+                    if (isSystemMaintenance || isRandomMaintenance) {
+                        if (btnSpin) {
+                            btnSpin.className = "btn btn-secondary";
+                            btnSpin.innerHTML = `<i class="fa-solid fa-screwdriver-wrench"></i> BẢO TRÌ`;
+                            btnSpin.disabled = true;
+                        }
+                    } else {
+                        if (btnSpin && spinStep === 1) {
+                            btnSpin.className = "btn btn-primary";
+                            btnSpin.innerHTML = `<i class="fa-solid fa-dice"></i> Mở Hòm Ngay`;
+                            btnSpin.disabled = false;
+                        }
                     }
-                } else {
-                    isSystemMaintenance = false;
-                    if (btnSpin && spinStep === 1) {
-                        btnSpin.className = "btn btn-primary";
-                        btnSpin.innerHTML = `<i class="fa-solid fa-dice"></i> Mở Hòm Ngay`;
-                        btnSpin.disabled = false;
-                    }
+                    
+                    // Cập nhật lại danh sách cửa hàng nếu trạng thái bảo trì thay đổi
+                    renderStoreUI();
                 }
             } catch (e) { console.log(e); }
+        }
+
+        // Tải dữ liệu các acc đang trưng bày ở cửa hàng từ firebase
+        let localStoreData = null;
+        async function loadStoreItems() {
+            try {
+                const storeRef = ref(database, 'kho_acc_store');
+                const snapshot = await get(storeRef);
+                localStoreData = snapshot.val();
+                renderStoreUI();
+            } catch(e) { console.log(e); }
+        }
+
+        // Render giao diện Kho acc lựa chọn
+        function renderStoreUI() {
+            const grid = document.getElementById('render-store-grid');
+            if(!grid) return;
+            grid.innerHTML = '';
+
+            if(!localStoreData) {
+                grid.innerHTML = `<p style="text-align:center; color:#aaa; width:100%; grid-column:span 3; padding: 20px 0;">Cửa hàng hiện tại đã hết acc trưng bày, vui lòng quay lại sau!</p>`;
+                return;
+            }
+
+            const keys = Object.keys(localStoreData);
+            keys.forEach(key => {
+                const item = localStoreData[key];
+                let displayLog = item.logtype ? item.logtype : "Chơi ngay";
+                let logClass = "log-guest";
+                if(displayLog === "Facebook") logClass = "log-facebook";
+                if(displayLog === "Zing") logClass = "log-zing";
+
+                let actionButton = `<button class="btn btn-success" onclick="handleBuyStoreClick('${key}')"><i class="fa-solid fa-basket-shopping"></i> Mua Ngay</button>`;
+                
+                // Nếu dính bảo trì tổng hoặc bảo trì danh mục Acc chọn lựa
+                if(isSystemMaintenance || isStoreMaintenance) {
+                    actionButton = `<button class="btn btn-secondary" disabled><i class="fa-solid fa-screwdriver-wrench"></i> Đang Bảo Trì</button>`;
+                }
+
+                let htmlCard = `
+                    <div class="card-random">
+                        <span class="card-tag" style="background:#2ed573;">Mã: ${item.id}</span>
+                        <div class="card-img">
+                            <img src="${item.image}" onerror="this.src='https://i.postimg.cc/K8NZ1hwV/IMG-2480.jpg'" alt="Acc Game">
+                        </div>
+                        <div class="card-body">
+                            <span class="badge-log ${logClass}">${displayLog}</span>
+                            <div class="card-title">Nick Play Together VIP #${item.id}</div>
+                            <div class="card-price">${parseInt(item.price).toLocaleString('vi-VN')}đ</div>
+                            <div>
+                                ${actionButton}
+                            </div>
+                            <div class="result-store-box" id="result-store-${key}"></div>
+                        </div>
+                    </div>
+                `;
+                grid.innerHTML += htmlCard;
+            });
+        }
+
+        // Xử lý khi click vào nút "Mua Ngay" tài khoản lựa chọn
+        async function handleBuyStoreClick(firebaseKey) {
+            if (isSystemMaintenance || isStoreMaintenance) {
+                alert("Danh mục Kho Acc Chọn Lựa hiện tại đang tạm khóa để bảo trì, vui lòng quay lại sau!");
+                return;
+            }
+
+            if(!currentUser) {
+                alert("Vui lòng đăng nhập hệ thống để thực hiện giao dịch này!");
+                return;
+            }
+
+            const item = localStoreData[firebaseKey];
+            if(!item) return;
+
+            let checkConfirm = confirm(`Bạn có chắc chắn muốn mua mã tài khoản VIP #${item.id} này với giá ${parseInt(item.price).toLocaleString('vi-VN')}đ không? Sẽ trừ tiền vào số dư của bạn.`);
+            if(!checkConfirm) return;
+
+            const userRef = ref(database, `users/${currentUser}`);
+            const userSnapshot = await get(userRef);
+            const userData = userSnapshot.val();
+
+            if (userData.status === "banned") {
+                alert("Tài khoản của bạn đã bị khóa, không thể giao dịch!");
+                logout();
+                return;
+            }
+
+            let currentBalance = userData.balance;
+            let itemPrice = parseInt(item.price);
+
+            if(currentBalance < itemPrice) {
+                alert(`Số dư hiện tại của bạn không đủ! Bạn cần có ít nhất ${itemPrice.toLocaleString('vi-VN')}đ. Vui lòng bấm 'Nạp' tiền.`);
+                return;
+            }
+
+            // Kiểm tra kiểm tra xem acc này còn tồn tại trên kho firebase thực tế hay không (tránh người khác mua mất)
+            const freshItemSnapshot = await get(ref(database, `kho_acc_store/${firebaseKey}`));
+            if(!freshItemSnapshot.exists()) {
+                alert("Tài khoản này vừa mới có người khác mua mất rồi! Hệ thống sẽ cập nhật lại kho.");
+                loadStoreItems();
+                return;
+            }
+
+            // Tiến hành trừ tiền của khách
+            let newBalance = currentBalance - itemPrice;
+            await set(ref(database, `users/${currentUser}/balance`), newBalance);
+            document.getElementById('user-balance').innerText = newBalance.toLocaleString('vi-VN');
+
+            // Xóa tài khoản này khỏi Cửa hàng Firebase ngay lập tức
+            await set(ref(database, `kho_acc_store/${firebaseKey}`), null);
+
+            // Hiển thị trực tiếp thông tin tài khoản vừa mua lên khung kết quả của Card đó
+            const resBox = document.getElementById(`result-store-${firebaseKey}`);
+            if(resBox) {
+                resBox.style.display = 'block';
+                resBox.innerHTML = `
+                    <span style="color: var(--secondary-color); font-weight: bold;"><i class="fa-solid fa-circle-check"></i> MUA THÀNH CÔNG!</span><br>
+                    <hr style="margin: 5px 0; opacity: 0.2;">
+                    <strong><i class="fa-solid fa-right-to-bracket"></i> Loại Log:</strong> <span style="color: #0abde3; font-weight: bold; text-transform: uppercase;">${item.logtype ? item.logtype : 'Chơi ngay'}</span><br>
+                    <strong><i class="fa-solid fa-user"></i> Tài khoản:</strong> <span style="color: #ffd32a; font-family: monospace;">${item.username}</span><br>
+                    <strong><i class="fa-solid fa-key"></i> Mật khẩu:</strong> <span style="color: #ffd32a; font-family: monospace;">${item.password}</span>
+                `;
+            }
+
+            alert("Giao dịch hoàn tất! Hãy sao chép lại thông tin tài khoản hiển thị trên màn hình.");
+            
+            // Cập nhật lại dữ liệu local để tránh việc render lại làm mất thông tin hiển thị
+            delete localStoreData[firebaseKey];
         }
 
         function toggleAuthMode() {
@@ -646,6 +783,7 @@
                     alert(`Chào mừng trở lại!`);
                     loginSuccess(data.balance, currentSBD);
                     checkSystemStatus();
+                    loadStoreItems();
                 } else {
                     alert("Sai tài khoản hoặc mật khẩu, vui lòng thử lại!");
                 }
@@ -678,8 +816,12 @@
         }
 
         function handleSpinClick() {
-            if (isSystemMaintenance) {
+            if (isSystemMaintenance || isRandomMaintenance) {
                 alert("Hệ thống hòm Random hiện tại đang tạm đóng để bảo trì nâng cấp, vui lòng quay lại sau!");
+                return;
+            }
+            if(!currentUser) {
+                alert("Vui lòng đăng nhập hệ thống để thực hiện random!");
                 return;
             }
             const btnSpin = document.getElementById('btn-spin-trigger');
