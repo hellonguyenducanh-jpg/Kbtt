@@ -12,7 +12,7 @@
     <link rel="apple-touch-icon" href="https://i.postimg.cc/K8NZ1hwV/IMG-2480.jpg">
     <link rel="icon" type="image/jpg" href="https://i.postimg.cc/K8NZ1hwV/IMG-2480.jpg">
 
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
@@ -21,6 +21,8 @@
             --secondary-color: #2ed573;
             --dark-color: #1e272e;
             --light-bg: #f1f2f6;
+            --shop-teal: #4ba3a5;
+            --shop-blue: #4a75f2;
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
@@ -40,7 +42,6 @@
         .blocker-title { font-size: 20px; font-weight: 700; color: #fff; margin-top: 15px; }
         .blocker-desc { font-size: 14px; color: #a4b0be; margin-top: 5px; margin-bottom: 30px; }
         
-        /* Khung hướng dẫn bọc ngoài */
         .guide-box {
             background: #1e222b;
             border: 1px solid rgba(255,255,255,0.05);
@@ -62,7 +63,6 @@
         .guide-header i { font-size: 24px; color: #54a0ff; }
         .guide-header h3 { font-size: 16px; font-weight: 600; }
         
-        /* Các bước hướng dẫn giống ảnh mẫu */
         .step-item { display: flex; gap: 15px; margin-bottom: 25px; position: relative; }
         .step-item:not(:last-child)::after {
             content: ''; position: absolute; left: 14px; top: 30px; bottom: -20px;
@@ -88,7 +88,6 @@
         }
         .step-img-mock i { font-size: 18px; color: #ff4757; }
 
-        /* Nút kích hoạt ảo cho Android */
         .btn-android-install {
             background: #2ed573; color: #fff; border: none; padding: 12px;
             border-radius: 8px; width: 100%; font-weight: 600; font-size: 14px;
@@ -180,7 +179,6 @@
         .social-divider::before, .social-divider::after { content: ''; flex: 1; border-bottom: 1px solid rgba(255,255,255,0.1); }
         .social-divider:not(:empty)::before { margin-right: .5em; }
         .social-divider:not(:empty)::after { margin-left: .5em; }
-
         .btn-google {
             background: #ffffff; color: #444; display: inline-flex; align-items: center; justify-content: center;
             gap: 10px; padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600;
@@ -203,7 +201,19 @@
         .section-title { font-size: 22px; font-weight: bold; margin: 35px 0 20px 0; display: flex; align-items: center; gap: 10px; border-left: 5px solid var(--primary-color); padding-left: 12px; }
 
         /* Khối hiển thị chung */
-        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 25px; justify-content: center; }
+        .shop-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px; justify-content: center; }
+        
+        /* ==================== ĐỊNG DẠNG GRID THẺ CHỌN (Y HỆT HÌNH 1 CỦA BẠN) ==================== */
+        .prod-card { background: #fff; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.15); position: relative; display: flex; flex-direction: column; border: 1px solid #e1e8ed; }
+        .prod-id-tag { position: absolute; top: 10px; left: 10px; background: #e67e22; color: #fff; padding: 3px 10px; font-size: 13px; font-weight: 700; border-radius: 4px; z-index: 5; }
+        .prod-img-box { width: 100%; height: 160px; overflow: hidden; background: #dfe4ea; position: relative; }
+        .prod-img-box img { width: 100%; height: 100%; object-fit: cover; }
+        .prod-price-card { background: #2f3542; color: #fff; text-align: center; padding: 8px; font-size: 14px; font-weight: 600; letter-spacing: 0.5px; }
+        .prod-price-atm { text-align: center; padding: 15px 10px; font-size: 14px; color: #57606f; font-weight: 500; }
+        .prod-price-atm strong { color: var(--primary-color); font-size: 17px; font-weight: 700; }
+        .btn-view-details { background: var(--shop-blue); color: #fff; border: none; padding: 11px; width: 90%; margin: 0 auto 15px auto; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; text-align: center; display: block; transition: 0.2s; }
+        .btn-view-details:active { transform: scale(0.97); opacity: 0.9; }
+
         .card-random {
             background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s; position: relative;
@@ -211,18 +221,11 @@
         .card-random:hover { transform: translateY(-5px); border-color: var(--primary-color); }
         .card-tag { position: absolute; top: 15px; left: 15px; background: var(--primary-color); padding: 4px 12px; border-radius: 50px; font-size: 12px; font-weight: 600; z-index: 5; }
         .card-img { width: 100%; height: 200px; background: #333 linear-gradient(45deg, #111, #333); display: flex; align-items: center; justify-content: center; font-size: 40px; color: #555; overflow: hidden; }
-        .card-img img { width: 100%; height: 100%; object-fit: cover; }
         .card-body { padding: 20px; text-align: center; }
         .card-title { font-size: 18px; font-weight: 600; margin-bottom: 10px; }
         .card-price { font-size: 22px; color: #ffd32a; font-weight: 700; margin-bottom: 15px; }
 
-        /* Badge Log định dạng hiển thị */
-        .badge-log { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: bold; text-transform: uppercase; margin-bottom: 10px; }
-        .log-guest { background: #ff9f43; color: #fff; }
-        .log-facebook { background: #1877f2; color: #fff; }
-        .log-zing { background: #6c5ce7; color: #fff; }
-
-        /* Buttons */
+        /* Buttons chung */
         .btn {
             display: inline-flex; align-items: center; justify-content: center; gap: 8px;
             padding: 12px 24px; border: none; border-radius: 8px; font-weight: 600; cursor: pointer; transition: 0.2s; width: 100%;
@@ -230,21 +233,31 @@
         .btn-primary { background: var(--primary-color); color: #fff; }
         .btn-primary:hover { background: #ff6b81; box-shadow: 0 5px 15px rgba(255, 71, 87, 0.4); }
         .btn-warning { background: #ffa502; color: #fff; }
-        .btn-warning:hover { background: #ffb129; box-shadow: 0 5px 15px rgba(255, 165, 2, 0.4); }
         .btn-success { background: var(--secondary-color); color: #fff; }
         .btn-danger { background: #ea2027; color: #fff; }
         .btn-secondary { background: #747d8c; color: #fff; cursor: not-allowed; }
 
-        /* Modal */
+        /* ==================== ĐỊNG DẠNG POP-UP MODAL XEM CHI TIẾT (Y HỆT HÌNH 2 & 3) ==================== */
         .modal {
             display: none; position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.9);
             background: #2f3640; padding: 25px; box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-            border-radius: 16px; z-index: 200; width: 90%; max-width: 420px; text-align: center;
+            border-radius: 16px; z-index: 200; width: 92%; max-width: 440px; text-align: center;
             border: 1px solid rgba(255,255,255,0.1); transition: 0.3s ease-in-out;
         }
         .modal.active { display: block; transform: translate(-50%, -50%) scale(1); }
         .overlay { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.7); backdrop-filter: blur(5px); z-index: 199; }
         .overlay.active { display: block; }
+        
+        .modal-shop-title { background: var(--shop-teal); color: #fff; padding: 12px; font-size: 15px; font-weight: 600; text-align: left; margin: -25px -25px 15px -25px; border-radius: 16px 16px 0 0; display: flex; justify-content: space-between; align-items: center; }
+        .modal-shop-close { cursor: pointer; font-size: 20px; padding: 0 5px; }
+
+        /* Bảng lịch sử dữ liệu chi tiết của Acc */
+        .info-table { width: 100%; border-collapse: collapse; margin: 15px 0; text-align: left; font-size: 13.5px; background: rgba(0,0,0,0.2); border-radius: 8px; overflow: hidden; }
+        .info-table th { background: rgba(255,255,255,0.08); color: #a4b0be; padding: 10px; font-weight: 600; width: 30%; border-bottom: 1px solid rgba(255,255,255,0.05); }
+        .info-table td { padding: 10px; border-bottom: 1px solid rgba(255,255,255,0.05); color: #fff; word-break: break-all; }
+        .copy-icon-btn { color: #54a0ff; cursor: pointer; margin-left: 8px; font-size: 14px; }
+        .copy-icon-btn:active { transform: scale(0.85); }
+
         .qr-image { width: 100%; max-width: 220px; border-radius: 12px; margin: 10px auto; border: 4px solid #fff; }
         .note-highlight { background: rgba(234, 32, 39, 0.15); border: 1px solid #ea2027; padding: 10px; border-radius: 8px; font-size: 12px; color: #ff7675; margin-top: 10px; text-align: left; line-height: 1.4; }
 
@@ -319,13 +332,11 @@
         </div>
     </div>
 
-
     <div id="splash-screen">
         <img src="https://i.postimg.cc/K8NZ1hwV/IMG-2480.jpg" class="splash-logo" alt="PTG SHOP">
         <div class="splash-loading"></div>
         <p style="margin-top: 15px; font-size: 13px; color: #888; letter-spacing: 2px; text-transform: uppercase;">Loading System...</p>
     </div>
-
 
     <div id="main-app-content">
         <nav>
@@ -392,12 +403,48 @@
 
                 <div class="section-title"><i class="fa-solid fa-store" style="color:#2ed573;"></i> 2. KHO ACC LỰA CHỌN (ĐỒNG GIÁ)</div>
                 <div class="shop-grid" id="render-store-grid">
-                     </div>
+                    </div>
             </div>
         </div>
     </div>
 
     <div class="overlay" id="overlay" onclick="closeAllModals()"></div>
+
+    <div class="modal" id="store-details-modal">
+        <div class="modal-shop-title">
+            <span id="popup-header-id">CHI TIẾT TÀI KHOẢN MÃ SỐ</span>
+            <span class="modal-shop-close" onclick="closeAllModals()"><i class="fa-solid fa-xmark"></i></span>
+        </div>
+        <img id="popup-acc-img" src="" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; background: #000;">
+        
+        <table class="info-table">
+            <tr>
+                <th>Tài khoản</th>
+                <td>
+                    <span id="popup-acc-user" style="font-weight: 600; color: #ffd32a; font-family: monospace;"></span>
+                    <i class="fa-regular fa-copy copy-icon-btn" onclick="copyValue('popup-acc-user')"></i>
+                </td>
+            </tr>
+            <tr>
+                <th>Mật khẩu</th>
+                <td>
+                    <span id="popup-acc-pass" style="font-weight: 600; color: #ffd32a; font-family: monospace;"></span>
+                    <i class="fa-regular fa-copy copy-icon-btn" onclick="copyValue('popup-acc-pass')"></i>
+                </td>
+            </tr>
+            <tr>
+                <th>Thông tin</th>
+                <td style="color:#a4b0be; font-size:12px; line-height: 1.4;">đăng nhập zing trắng thông tin . Nick siêu an toàn bảo hành 1 năm , nhớ đọc điều khoản để được bảo hành khi có vấn đề</td>
+            </tr>
+            <tr>
+                <th>Ghi chú</th>
+                <td style="color:#a4b0be; font-size:12px; line-height: 1.4;">đăng nhập zing trắng thông tin . Nick siêu an toàn bảo hành 1 năm , nhớ đọc điều khoản để được bảo hành khi có vấn đề</td>
+            </tr>
+        </table>
+        
+        <button class="btn btn-success" id="popup-buy-btn-trigger" style="margin-top: 5px;"><i class="fa-solid fa-cart-shopping"></i> MUA NGAY TÀI KHOẢN NÀY</button>
+    </div>
+
     <div class="modal" id="deposit-modal">
         <h3><i class="fa-solid fa-qrcode" style="color: var(--secondary-color);"></i> QUÉT MÃ NẠP TIỀN</h3>
         <p style="font-size: 13px; color: #aaa; margin-top: 5px;">Hệ thống cập nhật thông tin thủ công qua Admin</p>
@@ -407,7 +454,7 @@
         </p>
         <div class="note-highlight">
             <strong><i class="fa-solid fa-circle-exclamation"></i> GHI CHÚ QUAN TRỌNG:</strong><br>
-            Khi chuyển khoản xong, yêu cầu liên hệ with chủ shop để được cộng tiền vào tài khoản. Vui lòng giữ lại biên lai giao dịch!
+            Khi chuyển khoản xong, yêu cầu liên hệ với chủ shop để được cộng tiền vào tài khoản. Vui lòng giữ lại biên lai giao dịch!
         </div>
         <button class="btn btn-danger" style="padding: 8px; margin-top: 15px;" onclick="closeAllModals()">Đóng</button>
     </div>
@@ -452,14 +499,14 @@
         window.openModal = openModal;
         window.closeAllModals = closeAllModals;
         window.handleSpinClick = handleSpinClick;
-        window.handleBuyStoreClick = handleBuyStoreClick;
+        window.openStoreDetailsPopup = openStoreDetailsPopup;
+        window.copyValue = copyValue;
 
-        // BƯỚC THỰC THI CHÍNH KHI KHỞI ĐỘNG TRANG WEB
+        // KHỞI ĐỘNG KIỂM TRA ĐIỀU KIỆN CHẠY APP
         window.addEventListener('DOMContentLoaded', () => {
             detectAndVerifyPWA();
         });
 
-        // 🧠 HÀM THÔNG MINH: NHẬN DIỆN THIẾT BỊ VÀ ÉP BUỘC PHẢI CHẠY BẰNG MÀN HÌNH CHÍNH (PWA APP)
         function detectAndVerifyPWA() {
             const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
@@ -506,19 +553,7 @@
             }
         });
 
-        if (("standalone" in window.navigator) && window.navigator.standalone) {
-            var noddy, remotes = false;
-            document.addEventListener('click', function(event) {
-                noddy = event.target;
-                while (noddy.nodeName !== "A" && noddy.nodeName !== "HTML") { noddy = noddy.parentNode; }
-                if ('href' in noddy && noddy.href.indexOf('http') !== -1 && (noddy.href.indexOf(document.location.host) !== -1 || remotes)) {
-                    event.preventDefault();
-                    document.location.href = noddy.href;
-                }
-            }, false);
-        }
-
-        // ==================== CÁC LOGIC XỬ LÝ DỮ LIỆU ĐÃ CÓ CỦA SHOP ====================
+        // 1. ĐĂNG NHẬP GOOGLE VÀ CAP NHAT THÔNG TIN
         function loginWithGoogle() {
             const provider = new GoogleAuthProvider();
             provider.setCustomParameters({ prompt: 'select_account' });
@@ -557,7 +592,7 @@
                 })
                 .catch((error) => {
                     console.error(error);
-                    alert("Kết nối thất bại. Hãy chắc chắn bạn đã cấu hình miền trên Firebase Console!");
+                    alert("Kết nối thất bại. Vui lòng cấu hình OAuth Domain!");
                 });
         }
 
@@ -566,7 +601,6 @@
                 const configRef = ref(database, 'system_config');
                 const snapshot = await get(configRef);
                 const config = snapshot.val();
-                
                 const btnSpin = document.getElementById('btn-spin-trigger');
 
                 if (config) {
@@ -574,7 +608,6 @@
                     isRandomMaintenance = config.maintenance_random === true;
                     isStoreMaintenance = config.maintenance_store === true;
 
-                    // Xử lý nút xoay random dựa trên trạng thái bảo trì tổng hoặc bảo trì lẻ
                     if (isSystemMaintenance || isRandomMaintenance) {
                         if (btnSpin) {
                             btnSpin.className = "btn btn-secondary";
@@ -588,14 +621,11 @@
                             btnSpin.disabled = false;
                         }
                     }
-                    
-                    // Cập nhật lại danh sách cửa hàng nếu trạng thái bảo trì thay đổi
                     renderStoreUI();
                 }
             } catch (e) { console.log(e); }
         }
 
-        // Tải dữ liệu các acc đang trưng bày ở cửa hàng từ firebase
         let localStoreData = null;
         async function loadStoreItems() {
             try {
@@ -606,69 +636,82 @@
             } catch(e) { console.log(e); }
         }
 
-        // Render giao diện Kho acc lựa chọn
+        // 2. RENDER THE PUBLIC KHO ACC LỰA CHỌN (CHỈ HIỆN THẺ NGOÀI THEO HÌNH MẪU 1)
         function renderStoreUI() {
             const grid = document.getElementById('render-store-grid');
             if(!grid) return;
             grid.innerHTML = '';
 
             if(!localStoreData) {
-                grid.innerHTML = `<p style="text-align:center; color:#aaa; width:100%; grid-column:span 3; padding: 20px 0;">Cửa hàng hiện tại đã hết acc trưng bày, vui lòng quay lại sau!</p>`;
+                grid.innerHTML = `<p style="text-align:center; color:#aaa; width:100%; grid-column:span 3; padding: 20px 0;">Cửa hàng hiện tại hết acc chọn lựa, vui lòng quay lại sau!</p>`;
                 return;
             }
 
             const keys = Object.keys(localStoreData);
             keys.forEach(key => {
                 const item = localStoreData[key];
-                let displayLog = item.logtype ? item.logtype : "Chơi ngay";
-                let logClass = "log-guest";
-                if(displayLog === "Facebook") logClass = "log-facebook";
-                if(displayLog === "Zing") logClass = "log-zing";
-
-                let actionButton = `<button class="btn btn-success" onclick="handleBuyStoreClick('${key}')"><i class="fa-solid fa-basket-shopping"></i> Mua Ngay</button>`;
                 
-                // Nếu dính bảo trì tổng hoặc bảo trì danh mục Acc chọn lựa
+                // Tính toán ảo giá thẻ cào cao hơn ATM khoảng 21% cho giống thật
+                let simulateCardPrice = Math.round(parseInt(item.price) * 1.21).toLocaleString('vi-VN');
+                let simulateAtmPrice = parseInt(item.price).toLocaleString('vi-VN');
+
+                let actionButton = `<button class="btn-view-details" onclick="openStoreDetailsPopup('${key}')">Xem thông tin</button>`;
+                
                 if(isSystemMaintenance || isStoreMaintenance) {
-                    actionButton = `<button class="btn btn-secondary" disabled><i class="fa-solid fa-screwdriver-wrench"></i> Đang Bảo Trì</button>`;
+                    actionButton = `<button class="btn btn-secondary" style="width:90%; margin:0 auto 15px auto; padding:8px; font-size:12px;" disabled><i class="fa-solid fa-screwdriver-wrench"></i> Bảo trì</button>`;
                 }
 
                 let htmlCard = `
-                    <div class="card-random">
-                        <span class="card-tag" style="background:#2ed573;">Mã: ${item.id}</span>
-                        <div class="card-img">
-                            <img src="${item.image}" onerror="this.src='https://i.postimg.cc/K8NZ1hwV/IMG-2480.jpg'" alt="Acc Game">
+                    <div class="prod-card">
+                        <div class="prod-id-tag">ID: ${item.id}</div>
+                        <div class="prod-img-box">
+                            <img src="${item.image}" onerror="this.src='https://i.postimg.cc/K8NZ1hwV/IMG-2480.jpg'" alt="Cover Game">
                         </div>
-                        <div class="card-body">
-                            <span class="badge-log ${logClass}">${displayLog}</span>
-                            <div class="card-title">Nick Play Together VIP #${item.id}</div>
-                            <div class="card-price">${parseInt(item.price).toLocaleString('vi-VN')}đ</div>
-                            <div>
-                                ${actionButton}
-                            </div>
-                            <div class="result-store-box" id="result-store-${key}"></div>
-                        </div>
+                        <div class="prod-price-card">CARD: ${simulateCardPrice}đ</div>
+                        <div class="prod-price-atm">ATM: <strong>${simulateAtmPrice}đ</strong></div>
+                        ${actionButton}
                     </div>
                 `;
                 grid.innerHTML += htmlCard;
             });
         }
 
-        // Xử lý khi click vào nút "Mua Ngay" tài khoản lựa chọn
-        async function handleBuyStoreClick(firebaseKey) {
+        // 3. KHI KHÁCH ẤN "XEM THÔNG TIN" -> MỞ POPUP HIỂN THỊ DỮ LIỆU ĐỂ COPY (GIỐNG HÌNH 2 & 3)
+        function openStoreDetailsPopup(firebaseKey) {
             if (isSystemMaintenance || isStoreMaintenance) {
-                alert("Danh mục Kho Acc Chọn Lựa hiện tại đang tạm khóa để bảo trì, vui lòng quay lại sau!");
-                return;
-            }
-
-            if(!currentUser) {
-                alert("Vui lòng đăng nhập hệ thống để thực hiện giao dịch này!");
+                alert("Mục Kho Acc Chọn Lựa hiện tại đang bảo trì!");
                 return;
             }
 
             const item = localStoreData[firebaseKey];
             if(!item) return;
 
-            let checkConfirm = confirm(`Bạn có chắc chắn muốn mua mã tài khoản VIP #${item.id} này với giá ${parseInt(item.price).toLocaleString('vi-VN')}đ không? Sẽ trừ tiền vào số dư của bạn.`);
+            // Gán dữ liệu lên bảng modal pop-up công khai
+            document.getElementById('popup-header-id').innerText = `CHI TIẾT TÀI KHOẢN MÃ SỐ #${item.id}`;
+            document.getElementById('popup-acc-img').src = item.image;
+            document.getElementById('popup-acc-user').innerText = item.username;
+            document.getElementById('popup-acc-pass').innerText = item.password;
+
+            // Đặt hành động xử lý mua hàng cho nút bên trong modal công khai công bố công thức
+            const buyBtn = document.getElementById('popup-buy-btn-trigger');
+            buyBtn.onclick = function() {
+                executeBuyStoreTransaction(firebaseKey, item);
+            };
+
+            // Kích hoạt hiển thị modal popup
+            document.getElementById('store-details-modal').classList.add('active');
+            document.getElementById('overlay').classList.add('active');
+        }
+
+        // 4. LOGIC XỬ LÝ THANH TOÁN KHI ẤN NÚT "MUA NGAY TÀI KHOẢN NÀY" TRONG POP-UP
+        async function executeBuyStoreTransaction(firebaseKey, item) {
+            if(!currentUser) {
+                alert("Vui lòng đăng nhập hệ thống để thực hiện mua tài khoản!");
+                closeAllModals();
+                return;
+            }
+
+            let checkConfirm = confirm(`Xác nhận mua mã tài khoản VIP #${item.id} với giá ${parseInt(item.price).toLocaleString('vi-VN')}đ? Hệ thống sẽ trừ trực tiếp vào số dư ví của bạn.`);
             if(!checkConfirm) return;
 
             const userRef = ref(database, `users/${currentUser}`);
@@ -676,52 +719,49 @@
             const userData = userSnapshot.val();
 
             if (userData.status === "banned") {
-                alert("Tài khoản của bạn đã bị khóa, không thể giao dịch!");
+                alert("Tài khoản của bạn đã bị khóa vĩnh viễn!");
                 logout();
                 return;
             }
 
-            let currentBalance = userData.balance;
+            let currentBalance = parseInt(userData.balance);
             let itemPrice = parseInt(item.price);
 
             if(currentBalance < itemPrice) {
-                alert(`Số dư hiện tại của bạn không đủ! Bạn cần có ít nhất ${itemPrice.toLocaleString('vi-VN')}đ. Vui lòng bấm 'Nạp' tiền.`);
+                alert(`Số dư của bạn không đủ! Bạn cần có thêm tiền vào tài khoản để mua mã này.`);
                 return;
             }
 
-            // Kiểm tra kiểm tra xem acc này còn tồn tại trên kho firebase thực tế hay không (tránh người khác mua mất)
+            // Phòng ngừa trùng mua đồng thời dữ liệu thực tế
             const freshItemSnapshot = await get(ref(database, `kho_acc_store/${firebaseKey}`));
             if(!freshItemSnapshot.exists()) {
-                alert("Tài khoản này vừa mới có người khác mua mất rồi! Hệ thống sẽ cập nhật lại kho.");
+                alert("Tài khoản này vừa mới được bán cho người khác! Hệ thống sẽ cập nhật lại.");
                 loadStoreItems();
+                closeAllModals();
                 return;
             }
 
-            // Tiến hành trừ tiền của khách
+            // Thực hiện trừ tiền người dùng
             let newBalance = currentBalance - itemPrice;
             await set(ref(database, `users/${currentUser}/balance`), newBalance);
             document.getElementById('user-balance').innerText = newBalance.toLocaleString('vi-VN');
 
-            // Xóa tài khoản này khỏi Cửa hàng Firebase ngay lập tức
+            // Xóa tài khoản khỏi dữ liệu public công khai công chúng
             await set(ref(database, `kho_acc_store/${firebaseKey}`), null);
 
-            // Hiển thị trực tiếp thông tin tài khoản vừa mua lên khung kết quả của Card đó
-            const resBox = document.getElementById(`result-store-${firebaseKey}`);
-            if(resBox) {
-                resBox.style.display = 'block';
-                resBox.innerHTML = `
-                    <span style="color: var(--secondary-color); font-weight: bold;"><i class="fa-solid fa-circle-check"></i> MUA THÀNH CÔNG!</span><br>
-                    <hr style="margin: 5px 0; opacity: 0.2;">
-                    <strong><i class="fa-solid fa-right-to-bracket"></i> Loại Log:</strong> <span style="color: #0abde3; font-weight: bold; text-transform: uppercase;">${item.logtype ? item.logtype : 'Chơi ngay'}</span><br>
-                    <strong><i class="fa-solid fa-user"></i> Tài khoản:</strong> <span style="color: #ffd32a; font-family: monospace;">${item.username}</span><br>
-                    <strong><i class="fa-solid fa-key"></i> Mật khẩu:</strong> <span style="color: #ffd32a; font-family: monospace;">${item.password}</span>
-                `;
-            }
-
-            alert("Giao dịch hoàn tất! Hãy sao chép lại thông tin tài khoản hiển thị trên màn hình.");
+            alert(`Mua tài khoản thành công! Bạn vừa sở hữu tài khoản mã số #${item.id}. Vui lòng chụp màn hình hoặc copy lại tài khoản/mật khẩu đang hiển thị trên bảng thông báo.`);
             
-            // Cập nhật lại dữ liệu local để tránh việc render lại làm mất thông tin hiển thị
+            // Xóa tạm thời khỏi cục bộ và render lại kho bên ngoài công cộng
             delete localStoreData[firebaseKey];
+            renderStoreUI();
+        }
+
+        function copyValue(elementId) {
+            const text = document.getElementById(elementId).innerText;
+            if(!text) return;
+            navigator.clipboard.writeText(text).then(() => {
+                alert("Đã sao chép chuỗi vào khay nhớ tạm bộ nhớ!");
+            });
         }
 
         function toggleAuthMode() {
@@ -729,7 +769,8 @@
             const title = document.getElementById('auth-title');
             const btn = document.getElementById('btn-auth-submit');
             const toggleText = document.getElementById('auth-toggle-text');
-            resetSpinButton();
+            spinStep = 1;
+            checkSystemStatus();
             
             if(isRegisterMode) {
                 title.innerText = "ĐĂNG KÝ TÀI KHOẢN MỚI";
@@ -810,6 +851,7 @@
             document.getElementById(id).classList.add('active');
             document.getElementById('overlay').classList.add('active');
         }
+        
         function closeAllModals() {
             document.querySelectorAll('.modal').forEach(m => m.classList.remove('active'));
             document.getElementById('overlay').classList.remove('active');
@@ -817,11 +859,11 @@
 
         function handleSpinClick() {
             if (isSystemMaintenance || isRandomMaintenance) {
-                alert("Hệ thống hòm Random hiện tại đang tạm đóng để bảo trì nâng cấp, vui lòng quay lại sau!");
+                alert("Hệ thống hòm Random hiện tại đang tạm đóng để bảo trì!");
                 return;
             }
             if(!currentUser) {
-                alert("Vui lòng đăng nhập hệ thống để thực hiện random!");
+                alert("Vui lòng đăng nhập hệ thống để thực hiện mở hòm!");
                 return;
             }
             const btnSpin = document.getElementById('btn-spin-trigger');
@@ -830,7 +872,7 @@
                 btnSpin.className = "btn btn-warning";
                 btnSpin.innerHTML = `<i class="fa-solid fa-circle-check"></i> XÁC NHẬN RANDOM`;
             } else if (spinStep === 2) {
-                let checkConfirm = confirm("Bạn chắc chắn chứ? Khi bạn random là bạn sẽ bị mất 20k ở trong số dư tài khoản.");
+                let checkConfirm = confirm("Bạn chắc chắn chứ? Giao dịch mở hòm sẽ trừ đi 20.000đ từ tài khoản.");
                 if (checkConfirm) { executeSpinLogic(); } else { resetSpinButton(); }
             }
         }
@@ -847,14 +889,14 @@
             const userData = snapshot.val();
 
             if (userData.status === "banned") {
-                alert("Thao tác thất bại! Tài khoản của bạn vừa bị khóa!");
+                alert("Tài khoản của bạn đã bị khóa!");
                 logout();
                 return;
             }
 
             let currentBalance = userData.balance;
             if (currentBalance < 20000) {
-                alert("Số dư tài khoản không đủ 20.000đ! Vui lòng bấm nút 'Nạp' để nạp thêm tiền.");
+                alert("Số dư tài khoản không đủ 20.000đ! Vui lòng bấm nạp.");
                 return;
             }
 
@@ -864,14 +906,14 @@
 
             const resultBox = document.getElementById('result-box');
             resultBox.style.display = 'block';
-            resultBox.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Hệ thống đang sàng lọc dữ liệu acc...`;
+            resultBox.innerHTML = `<i class="fa-solid fa-spinner fa-spin"></i> Hệ thống đang sàng lọc dữ liệu hòm...`;
 
             const khoSnapshot = await get(ref(database, 'kho_acc'));
             const khoAcc = khoSnapshot.val();
 
             setTimeout(async () => {
                 if (!khoAcc) {
-                    resultBox.innerHTML = `<span style="color: #ea2027; font-weight: bold;"><i class="fa-solid fa-circle-exclamation"></i> Hòm quà hiện đã hết nick! Vui lòng liên hệ Admin.</span>`;
+                    resultBox.innerHTML = `<span style="color: #ea2027; font-weight: bold;"><i class="fa-solid fa-circle-exclamation"></i> Hòm đã hết nick! Số dư của bạn được giữ lại.</span>`;
                     let refundBalance = newBalance + 20000;
                     await set(ref(database, `users/${currentUser}/balance`), refundBalance);
                     document.getElementById('user-balance').innerText = refundBalance.toLocaleString('vi-VN');
@@ -885,7 +927,7 @@
                 await set(ref(database, `kho_acc/${randomKey}`), null);
 
                 resultBox.innerHTML = `
-                    <span style="color: var(--secondary-color); font-weight: bold;"><i class="fa-solid fa-circle-check"></i> CHÚC MỪNG BẠN ĐÃ TRÚNG ACC!</span><br>
+                    <span style="color: var(--secondary-color); font-weight: bold;"><i class="fa-solid fa-circle-check"></i> TRÚNG ACC RANDOM THÀNH CÔNG!</span><br>
                     <hr style="margin: 5px 0; opacity: 0.2;">
                     <strong><i class="fa-solid fa-right-to-bracket"></i> Hình thức log:</strong> <span style="color: #0abde3; font-weight: bold; text-transform: uppercase;">${accTrung.logtype ? accTrung.logtype : 'Chơi ngay'}</span><br>
                     <strong><i class="fa-solid fa-user"></i> Tài khoản:</strong> <span style="color: #ffd32a; font-family: monospace;">${accTrung.username}</span><br>
