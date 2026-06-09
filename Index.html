@@ -214,6 +214,20 @@
         .btn-view-details { background: var(--shop-blue); color: #fff; border: none; padding: 11px; width: 90%; margin: 0 auto 15px auto; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; text-align: center; display: block; transition: 0.2s; }
         .btn-view-details:active { transform: scale(0.97); opacity: 0.9; }
 
+        /* Thêm style CSS cho Mục Danh Mục Lớn để hiển thị đẹp mắt */
+        .category-box-card {
+            background: linear-gradient(135deg, rgba(255,255,255,0.06) 0%, rgba(255,255,255,0.01) 100%);
+            border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; overflow: hidden;
+            transition: 0.3s; position: relative; cursor: pointer; text-align: center;
+        }
+        .category-box-card:hover { transform: translateY(-4px); border-color: var(--secondary-color); }
+        .category-box-img { width: 100%; height: 170px; object-fit: cover; background: #222; }
+        .category-box-body { padding: 15px; }
+        .category-box-title { font-size: 16px; font-weight: 600; color: #fff; margin-bottom: 5px; text-transform: uppercase; }
+        .category-box-status { font-size: 13px; color: var(--secondary-color); font-weight: 500; }
+        .btn-back-main { background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 8px 16px; border-radius: 6px; font-weight: 600; font-size: 13px; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; margin-bottom: 15px; }
+        .btn-back-main:hover { background: rgba(255,255,255,0.18); }
+
         .card-random {
             background: rgba(255,255,255,0.05); border-radius: 16px; overflow: hidden;
             border: 1px solid rgba(255,255,255,0.1); transition: transform 0.3s; position: relative;
@@ -402,8 +416,23 @@
                 </div>
 
                 <div class="section-title"><i class="fa-solid fa-store" style="color:#2ed573;"></i> 2. KHO ACC LỰA CHỌN (ĐỒNG GIÁ)</div>
-                <div class="shop-grid" id="render-store-grid">
+                
+                <div id="category-wrapper">
+                    <div class="shop-grid">
+                        <div class="category-box-card" onclick="openCategoryFolder()">
+                            <img src="https://i.postimg.cc/K8NZ1hwV/IMG-2480.jpg" class="category-box-img" alt="Gói VIP">
+                            <div class="category-box-body">
+                                <div class="category-box-title">DANH MỤC ACC CHỌN LỰA ĐỒNG GIÁ</div>
+                                <div class="category-box-status"><i class="fa-solid fa-circle-check"></i> Đang mở bán sẵn</div>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div id="store-folder-area" style="display: none; margin-top: 10px;">
+                    <button class="btn-back-main" onclick="closeCategoryFolder()"><i class="fa-solid fa-arrow-left"></i> Quay lại Danh mục chính</button>
+                    <div class="shop-grid" id="render-store-grid"></div>
+                </div>
             </div>
         </div>
     </div>
@@ -412,25 +441,19 @@
 
     <div class="modal" id="store-details-modal">
         <div class="modal-shop-title">
-            <span id="popup-header-id">CHI TIẾT TÀI KHOẢN MÃ SỐ</span>
+            <span id="popup-header-id">XÁC NHẬN MUA TÀI KHOẢN</span>
             <span class="modal-shop-close" onclick="closeAllModals()"><i class="fa-solid fa-xmark"></i></span>
         </div>
         <img id="popup-acc-img" src="" style="width: 100%; height: 150px; object-fit: cover; border-radius: 8px; background: #000;">
         
         <table class="info-table">
             <tr>
-                <th>Tài khoản</th>
-                <td>
-                    <span id="popup-acc-user" style="font-weight: 600; color: #ffd32a; font-family: monospace;"></span>
-                    <i class="fa-regular fa-copy copy-icon-btn" onclick="copyValue('popup-acc-user')"></i>
-                </td>
+                <th>Mã số Acc</th>
+                <td id="popup-acc-id" style="font-weight: bold; color: #ffd32a;"></td>
             </tr>
             <tr>
-                <th>Mật khẩu</th>
-                <td>
-                    <span id="popup-acc-pass" style="font-weight: 600; color: #ffd32a; font-family: monospace;"></span>
-                    <i class="fa-regular fa-copy copy-icon-btn" onclick="copyValue('popup-acc-pass')"></i>
-                </td>
+                <th>Giá ATM</th>
+                <td id="popup-acc-price" style="font-weight: bold; color: var(--secondary-color);"></td>
             </tr>
             <tr>
                 <th>Thông tin</th>
@@ -438,11 +461,11 @@
             </tr>
             <tr>
                 <th>Ghi chú</th>
-                <td style="color:#a4b0be; font-size:12px; line-height: 1.4;">đăng nhập zing trắng thông tin . Nick siêu an toàn bảo hành 1 năm , nhớ đọc điều khoản để được bảo hành khi có vấn đề</td>
+                <td style="color:#a4b0be; font-size:12px; line-height: 1.4;">Tài khoản sẽ được hiển thị ngay lập tức sau khi bạn xác nhận thanh toán thành công!</td>
             </tr>
         </table>
         
-        <button class="btn btn-success" id="popup-buy-btn-trigger" style="margin-top: 5px;"><i class="fa-solid fa-cart-shopping"></i> MUA NGAY TÀI KHOẢN NÀY</button>
+        <button class="btn btn-success" id="popup-buy-btn-trigger" style="margin-top: 5px;"><i class="fa-solid fa-cart-shopping"></i> XÁC NHẬN MUA NGAY</button>
     </div>
 
     <div class="modal" id="deposit-modal">
@@ -501,6 +524,10 @@
         window.handleSpinClick = handleSpinClick;
         window.openStoreDetailsPopup = openStoreDetailsPopup;
         window.copyValue = copyValue;
+        
+        // Thêm hàm quản lý đóng mở thư mục danh mục lớn toàn cục
+        window.openCategoryFolder = openCategoryFolder;
+        window.closeCategoryFolder = closeCategoryFolder;
 
         // KHỞI ĐỘNG KIỂM TRA ĐIỀU KIỆN CHẠY APP
         window.addEventListener('DOMContentLoaded', () => {
@@ -636,7 +663,18 @@
             } catch(e) { console.log(e); }
         }
 
-        // 2. RENDER THE PUBLIC KHO ACC LỰA CHỌN (CHỈ HIỆN THẺ NGOÀI THEO HÌNH MẪU 1)
+        // PHẦN CHỈNH SỬA: Hàm điều khiển đóng mở giao diện thư mục danh mục
+        function openCategoryFolder() {
+            document.getElementById('category-wrapper').style.display = 'none';
+            document.getElementById('store-folder-area').style.display = 'block';
+        }
+
+        function closeCategoryFolder() {
+            document.getElementById('category-wrapper').style.display = 'block';
+            document.getElementById('store-folder-area').style.display = 'none';
+        }
+
+        // 2. RENDER THE PUBLIC KHO ACC LỰA CHỌN (BẢO MẬT: TUYỆT ĐỐI KHÔNG HIỆN THÔNG TIN ĐĂNG NHẬP RA NGOÀI)
         function renderStoreUI() {
             const grid = document.getElementById('render-store-grid');
             if(!grid) return;
@@ -651,11 +689,11 @@
             keys.forEach(key => {
                 const item = localStoreData[key];
                 
-                // Tính toán ảo giá thẻ cào cao hơn ATM khoảng 21% cho giống thật
                 let simulateCardPrice = Math.round(parseInt(item.price) * 1.21).toLocaleString('vi-VN');
                 let simulateAtmPrice = parseInt(item.price).toLocaleString('vi-VN');
 
-                let actionButton = `<button class="btn-view-details" onclick="openStoreDetailsPopup('${key}')">Xem thông tin</button>`;
+                // Thay đổi nhãn nút bấm thành Mua Ngay để kích hoạt quy trình thanh toán kín
+                let actionButton = `<button class="btn-view-details" onclick="openStoreDetailsPopup('${key}')">Mua Ngay (Xem Nick)</button>`;
                 
                 if(isSystemMaintenance || isStoreMaintenance) {
                     actionButton = `<button class="btn btn-secondary" style="width:90%; margin:0 auto 15px auto; padding:8px; font-size:12px;" disabled><i class="fa-solid fa-screwdriver-wrench"></i> Bảo trì</button>`;
@@ -676,7 +714,7 @@
             });
         }
 
-        // 3. KHI KHÁCH ẤN "XEM THÔNG TIN" -> MỞ POPUP HIỂN THỊ DỮ LIỆU ĐỂ COPY (GIỐNG HÌNH 2 & 3)
+        // 3. KHI KHÁCH ẤN "MUA NGAY (XEM NICK)" -> MỞ POPUP XÁC NHẬN (VẪN GIẤU THÔNG TIN ĐĂNG NHẬP ĐỂ ĐẢM BẢO AN TOÀN)
         function openStoreDetailsPopup(firebaseKey) {
             if (isSystemMaintenance || isStoreMaintenance) {
                 alert("Mục Kho Acc Chọn Lựa hiện tại đang bảo trì!");
@@ -686,24 +724,22 @@
             const item = localStoreData[firebaseKey];
             if(!item) return;
 
-            // Gán dữ liệu lên bảng modal pop-up công khai
-            document.getElementById('popup-header-id').innerText = `CHI TIẾT TÀI KHOẢN MÃ SỐ #${item.id}`;
+            // Gán dữ liệu cơ bản, tuyệt đối không gán item.username hay item.password lên giao diện HTML public lúc này
+            document.getElementById('popup-header-id').innerText = `XÁC NHẬN MUA TÀI KHOẢN MÃ SỐ #${item.id}`;
             document.getElementById('popup-acc-img').src = item.image;
-            document.getElementById('popup-acc-user').innerText = item.username;
-            document.getElementById('popup-acc-pass').innerText = item.password;
+            document.getElementById('popup-acc-id').innerText = `#${item.id}`;
+            document.getElementById('popup-acc-price').innerText = `${parseInt(item.price).toLocaleString('vi-VN')}đ`;
 
-            // Đặt hành động xử lý mua hàng cho nút bên trong modal công khai công bố công thức
             const buyBtn = document.getElementById('popup-buy-btn-trigger');
             buyBtn.onclick = function() {
                 executeBuyStoreTransaction(firebaseKey, item);
             };
 
-            // Kích hoạt hiển thị modal popup
             document.getElementById('store-details-modal').classList.add('active');
             document.getElementById('overlay').classList.add('active');
         }
 
-        // 4. LOGIC XỬ LÝ THANH TOÁN KHI ẤN NÚT "MUA NGAY TÀI KHOẢN NÀY" TRONG POP-UP
+        // 4. PHẦN CHỈNH SỬA QUAN TRỌNG: TRỪ TIỀN HOÀN TẤT MỚI HIỂN THỊ TÀI KHOẢN MẬT KHẨU QUA ALERT
         async function executeBuyStoreTransaction(firebaseKey, item) {
             if(!currentUser) {
                 alert("Vui lòng đăng nhập hệ thống để thực hiện mua tài khoản!");
@@ -711,7 +747,7 @@
                 return;
             }
 
-            let checkConfirm = confirm(`Xác nhận mua mã tài khoản VIP #${item.id} với giá ${parseInt(item.price).toLocaleString('vi-VN')}đ? Hệ thống sẽ trừ trực tiếp vào số dư ví của bạn.`);
+            let checkConfirm = confirm(`Xác nhận thanh toán mua mã tài khoản VIP #${item.id} với giá ${parseInt(item.price).toLocaleString('vi-VN')}đ? Hệ thống sẽ trừ trực tiếp vào ví.`);
             if(!checkConfirm) return;
 
             const userRef = ref(database, `users/${currentUser}`);
@@ -728,30 +764,31 @@
             let itemPrice = parseInt(item.price);
 
             if(currentBalance < itemPrice) {
-                alert(`Số dư của bạn không đủ! Bạn cần có thêm tiền vào tài khoản để mua mã này.`);
+                alert(`Số dư ví của bạn không đủ để thực hiện mua tài khoản này! Vui lòng nạp thêm.`);
                 return;
             }
 
-            // Phòng ngừa trùng mua đồng thời dữ liệu thực tế
             const freshItemSnapshot = await get(ref(database, `kho_acc_store/${firebaseKey}`));
             if(!freshItemSnapshot.exists()) {
-                alert("Tài khoản này vừa mới được bán cho người khác! Hệ thống sẽ cập nhật lại.");
+                alert("Tài khoản này vừa mới được bán cho người khác! Hệ thống sẽ tự động cập nhật lại.");
                 loadStoreItems();
                 closeAllModals();
                 return;
             }
 
-            // Thực hiện trừ tiền người dùng
+            // Thực hiện trừ tiền hệ thống
             let newBalance = currentBalance - itemPrice;
             await set(ref(database, `users/${currentUser}/balance`), newBalance);
             document.getElementById('user-balance').innerText = newBalance.toLocaleString('vi-VN');
 
-            // Xóa tài khoản khỏi dữ liệu public công khai công chúng
+            // Xóa ngay tài khoản khỏi Database công cộng để tránh trùng lặp
             await set(ref(database, `kho_acc_store/${firebaseKey}`), null);
-
-            alert(`Mua tài khoản thành công! Bạn vừa sở hữu tài khoản mã số #${item.id}. Vui lòng chụp màn hình hoặc copy lại tài khoản/mật khẩu đang hiển thị trên bảng thông báo.`);
             
-            // Xóa tạm thời khỏi cục bộ và render lại kho bên ngoài công cộng
+            closeAllModals();
+
+            // Trả thông tin tài khoản mật khẩu độc quyền thông qua hộp thoại an toàn cho khách mua
+            alert(`🎉 GIAO DỊCH THÀNH CÔNG!\n\nThông tin đăng nhập tài khoản mã số #${item.id} của bạn:\n🔹 Tài khoản: ${item.username}\n🔹 Mật khẩu: ${item.password}\n\nLưu ý quan trọng: Bạn hãy chụp ảnh màn hình hoặc ghi lại thông tin này ngay lập tức!`);
+            
             delete localStoreData[firebaseKey];
             renderStoreUI();
         }
